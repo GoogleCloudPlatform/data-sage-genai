@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataSagegenie v01</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icons/google-icon.png') }}" type="image/png">
 </head>
 <body>
     <div id="chat-container">
         <header id="chat-header">
-            <span class="material-icons">question_answer</span>
-            <h1>DataSagegenie v01</h1>
+            <img src="{{ url_for('static', filename='icons/google-icon.png') }}" alt="Google Icon" id="google-icon">
+            DataSagegenie v01
         </header>
         <div id="chat-box">
-            <!-- Messages will be dynamically added here -->
+            <!-- Chat messages will appear here -->
         </div>
         <form id="chat-form">
             <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off">
-            <button type="submit">
-                <span class="material-icons">send</span>
-            </button>
+            <button type="submit">Send</button>
         </form>
     </div>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+

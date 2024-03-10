@@ -1,0 +1,93 @@
+/* Existing styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f3f3f3;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-header {
+    background-color: #1a73e8;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#google-icon {
+    margin-right: 10px;
+}
+
+#chat-box {
+    width: 80%;
+    background-color: #fff;
+    height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#chat-form {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+#chat-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #1a73e8;
+    border-radius: 4px;
+}
+
+#chat-form button {
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#chat-form button:hover {
+    background-color: #1669c7;
+}
+
+/* New styles for messages */
+.message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #e7f3fe; /* Light blue background for user messages */
+    align-self: flex-end; /* Aligns user messages to the right */
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #d1e7dd; /* Light green background for bot messages */
+    align-self: flex-start; /* Aligns bot messages to the left */
+    text-align: left;
+}
+
