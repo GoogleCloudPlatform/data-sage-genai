@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataSagegenie v01</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='icons/google-icon.png') }}" type="image/png">
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>DataSagegenie v01</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+   <link rel="icon" href="{{ url_for('static', filename='icons/google-icon.png') }}" type="image/png">
 </head>
 <body>
-    <div id="chat-container">
-        <header id="chat-header">
-            <img src="{{ url_for('static', filename='google-icon.png') }}" alt="Google Icon" id="google-icon">
-            DataSageGen v01
-        </header>
-        <div id="chat-box">
-            <!-- Chat messages will appear here -->
-        </div>
-        <form id="chat-form">
-            <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off">
-            <button type="submit">Send</button>
-        </form>
-    </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+   <div id="chat-container">
+       <header id="chat-header">
+           <img src="{{ url_for('static', filename='google-icon.png') }}" alt="Google Icon" id="google-icon">
+           DataSageGen v01
+       </header>
+       <div id="chat-box">
+           <!-- Chat messages will appear here -->
+       </div>
+       <form id="chat-form">
+           <input type="text" id="chat-input" placeholder="Ask me anything..." autocomplete="off">
+           <button type="submit">Send</button>
+       </form>
+   </div>
+   <footer class="page-footer">
+       Author: Wissem khlifi, wissemk@
+   </footer>
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
