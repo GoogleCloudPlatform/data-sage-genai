@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let userInput = document.getElementById("chat-input");
         let message = userInput.value.trim();
 
+
         if (message) {
             addMessage("user", message);
             fetch("/ask", {
@@ -15,19 +16,21 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(response => response.json())
             .then(data => {
-                // Assuming 'closest_summaries' is an array of strings
-                data.closest_summaries.forEach(summary => {
-                    addMessage("bot", summary);
-                });
+                if (data.response) { // Handle response based on updated Flask app structure
+                    addMessage("bot", data.response); // Display bot response
+                } else {
+                    addMessage("bot", "Sorry, I couldn't process that."); // Fallback message
+                }
             })
             .catch(error => {
                 console.error("Error:", error);
-                addMessage("bot", "An error occurred."); // Show error in chat
+                addMessage("bot", "An error occurred."); // Show error message in chat
             });
         }
         userInput.value = ""; // Clear input field after sending
     });
 });
+
 
 // Function to add user or bot message to the chat box
 function addMessage(sender, message) {
@@ -37,14 +40,16 @@ function addMessage(sender, message) {
     label.textContent = sender.charAt(0).toUpperCase() + sender.slice(1) + ":";
     label.style.fontWeight = "bold";
 
+
     messageDiv.classList.add("message", `${sender}-message`);
     messageDiv.textContent = message;
+
 
     let containerDiv = document.createElement("div");
     containerDiv.appendChild(label);
     containerDiv.appendChild(messageDiv);
 
+
     chatBox.appendChild(containerDiv);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
 }
-

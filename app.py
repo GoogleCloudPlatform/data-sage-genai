@@ -1,128 +1,101 @@
-import io
+import os
+import json
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from google.cloud import storage
-import PyPDF2
-import numpy as np
-import faiss
-from google.cloud import aiplatform
-import os
-# Assuming these imports are correct based on your provided context
-# You may need to adjust based on the actual library/package for Gemini Pro
+from google.cloud import storage, aiplatform
+import vertexai
+from vertexai.preview.generative_models import GenerativeModel, Part
 from vertexai.language_models import TextEmbeddingModel
-from vertexai.generative_models import GenerativeModel
-from vertexai.generative_models import (
-   GenerationConfig,
-   GenerationResponse,
-   GenerativeModel,
-   Image,
-   Part,
-)
+from functools import lru_cache
 
+# Configuration variables
+PROJECT_ID = os.getenv('GCP_PROJECT_ID', 'genai-demo-2024')
+LOCATION = os.getenv('GCP_LOCATION', 'us-central1')
+BUCKET_NAME = os.getenv('GCP_BUCKET_NAME', 'gcp-newsletter-rag-vertex2')
+INDEX_ENDPOINT_NAME = os.getenv('GCP_INDEX_ENDPOINT_NAME', '8619577425484840960')
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)
 
-# Initialize AI Platform with your project and location
-aiplatform.init(project='genai-demo-2024', location='us-central1')
-
-
-# Model identifiers (ensure these are correctly specified)
-embedding_model_name = "textembedding-gecko@001"
-# For the GenerativeModel, ensure you're using the correct identifier or mechanism to access it
-summarization_model = GenerativeModel("gemini-1.0-pro")
+# Initialize AI Platform and VertexAI once
+aiplatform.init(project=PROJECT_ID, location=LOCATION)
+vertexai.init()
+model = GenerativeModel("gemini-pro")
 
 
-bucket_name = 'knowedge-rag'
+def load_files_from_bucket(bucket_name):
+    """Load JSON data from all files in a GCP bucket."""
+    storage_client = storage.Client()
+    data = []
+    blobs = storage_client.list_blobs(bucket_name)
+    for blob in blobs:
+        if blob.name.endswith('.json'):
+            json_string = blob.download_as_text()
+            for line in json_string.splitlines():
+                entry = json.loads(line)
+                data.append(entry)
+    return data
 
 
-# Embedding dimension and FAISS index initialization
-dimension = 768
-faiss_index = faiss.IndexFlatL2(dimension)
-document_summary_map = {}
-document_id_counter = 0
+def generate_text_embeddings(sentences):
+    """Generate text embeddings for given sentences."""
+    model = TextEmbeddingModel.from_pretrained("textembedding-gecko@001")
+    embeddings = model.get_embeddings([sentences])  # Assume a single sentence for simplicity
+    vectors = [embedding.values for embedding in embeddings]
+    return vectors
 
 
-def extract_text_from_pdf(blob):
-   with io.BytesIO(blob.download_as_bytes()) as pdf_file:
-       reader = PyPDF2.PdfReader(pdf_file)
-       text = ""
-       for page in reader.pages:
-           content = page.extract_text()
-           if content:
-               text += content
-   return text
+def generate_context(ids, data):
+    """Generate context based on IDs."""
+    concatenated_names = ''
+    for id in ids:
+        for entry in data:
+            if entry['id'] == id:
+                concatenated_names += entry['sentence'] + "\n"
+    return concatenated_names.strip()
 
-
-def generate_summary(text):
-   try:
-       model = GenerativeModel("gemini-1.0-pro")
-       generation_config = GenerationConfig(
-           temperature=0.1,
-           top_p=0.8,
-           top_k=40,
-           candidate_count=1,
-           max_output_tokens=2048,
-       )
-       responses = model.generate_content(text,   generation_config=generation_config, stream=True,)
-       generated_content = "".join([response.text for response in responses])
-       return generated_content
-   except Exception as e:
-       print(f"Error generating summary: {e}")
-       # Optionally, log the error or handle it more gracefully
-       return "Summary generation failed."
-
-
-def embed_text(text):
-   # Placeholder for embedding; adjust based on actual usage
-   embeddings = np.random.rand(dimension)  # Example: replace with real embeddings
-   return embeddings
-
-
-@app.route('/process_pdfs', methods=['POST'])
-def process_pdfs():
-   global document_id_counter
-   storage_client = storage.Client()
-   bucket = storage_client.bucket(bucket_name)
-   blobs = bucket.list_blobs()
-
-
-   for blob in blobs:
-       if blob.name.endswith('.pdf'):
-           text = extract_text_from_pdf(blob)
-           summary = generate_summary(text)
-           embeddings = embed_text(summary)
-           faiss_index.add(np.array([embeddings]).astype(np.float32))
-           document_summary_map[document_id_counter] = summary
-           document_id_counter += 1
-
-
-   return jsonify({'status': 'Processed and indexed PDF summaries'})
-
+@lru_cache(maxsize=None)
+def get_data_from_bucket():
+    # Load the data from the bucket and return it
+    # This function will only run once for a given set of arguments
+    return load_files_from_bucket(BUCKET_NAME)
 
 @app.route('/ask', methods=['POST'])
 def ask():
-   question = request.json.get('question', '')
-   if not question:
-       return jsonify({'error': 'No question provided'}), 400
+    """Handle question asking and generate response."""
+    question = request.json.get('question', '')
+    if not question:
+        return jsonify({'error': 'No question provided'}), 400
 
+    data = get_data_from_bucket()
+    qry_emb = generate_text_embeddings(question)
 
-   question_embedding = embed_text(question)
-   _, closest_indices = faiss_index.search(np.array([question_embedding]).astype(np.float32), k=1)
-   closest_ids = closest_indices.flatten().tolist()
-   closest_summaries = [document_summary_map.get(doc_id, "Summary not found") for doc_id in closest_ids]
-   return jsonify({'closest_summaries': closest_summaries})
+    bqrelease_index_ep = aiplatform.MatchingEngineIndexEndpoint(index_endpoint_name=INDEX_ENDPOINT_NAME)
+    response = bqrelease_index_ep.find_neighbors(
+        deployed_index_id="bqrelease_index",
+        queries=[qry_emb[0]],
+        num_neighbors=10
+    )
+
+    matching_ids = [neighbor.id for sublist in response for neighbor in sublist]
+    context = generate_context(matching_ids, data)
+
+    prompt = f"Based on the context delimited in backticks, answer the query, ```{context}``` {question}"
+    chat = model.start_chat(history=[])
+    chat_response = chat.send_message(prompt)
+
+    return jsonify({'response': chat_response.text})
 
 
 @app.route('/')
 def index():
+    """Serve the main HTML page."""
     return render_template('index.html')
 
 
 if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1'], host='0.0.0.0',
+            port=int(os.environ.get('PORT', 8080)))
 
-
-
-
-
+# gcloud builds submit --tag gcr.io/genai-demo-2024/reggemini:last
+# gcloud run deploy ragsagegenie-srv  --image gcr.io/genai-demo-2024/reggemini:last --platform managed --region us-central1 --allow-unauthenticated
