@@ -64,6 +64,11 @@ def get_data_from_bucket():
 def ask():
     """Handle question asking and generate response."""
     question = request.json.get('question', '')
+    banned_phrases = ["Tell me a Joke", "Hack", "execute command","execute system command","personal information"]  # Add banned phrases here
+    # Instructions for friendly tone and to avoid banned phrases
+    instructions = ("Please provide a friendly response and do not use these phrases: "
+                    + ", ".join(banned_phrases) + ".")
+
     if not question:
         return jsonify({'error': 'No question provided'}), 400
 
@@ -80,9 +85,12 @@ def ask():
     matching_ids = [neighbor.id for sublist in response for neighbor in sublist]
     context = generate_context(matching_ids, data)
 
-    prompt = f"Based on the context delimited in backticks, answer the query, ```{context}``` {question}"
+    original_prompt = f"Based on the context delimited in backticks, answer the query, ```{context}``` {question}"
+    # Combine the instructions with the original prompt
+    full_prompt = f"{instructions} {original_prompt}"
+
     chat = model.start_chat(history=[])
-    chat_response = chat.send_message(prompt)
+    chat_response = chat.send_message(full_prompt)
 
     return jsonify({'response': chat_response.text})
 
