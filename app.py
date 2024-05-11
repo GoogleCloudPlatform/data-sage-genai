@@ -1,3 +1,16 @@
+# Copyright 2024 Google LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#  https://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 import json
 from flask import Flask, request, jsonify, render_template
@@ -9,9 +22,13 @@ from vertexai.language_models import TextEmbeddingModel
 from functools import lru_cache
 
 # Configuration variables
+# Change your PROJECT_ID value here
 PROJECT_ID = os.getenv('GCP_PROJECT_ID', 'genai-demo-2024')
+# Change your GCP REGION LOCATION value here
 LOCATION = os.getenv('GCP_LOCATION', 'us-central1')
+# Change your  Google Cloud Storage Bucket Name   here
 BUCKET_NAME = os.getenv('GCP_BUCKET_NAME', 'gcp-newsletter-rag-vertex2')
+# Change the INDEX_ENDPOINT_NAME by the   Vector Search endpoint ID
 INDEX_ENDPOINT_NAME = os.getenv('GCP_INDEX_ENDPOINT_NAME', '8619577425484840960')
 
 app = Flask(__name__)
