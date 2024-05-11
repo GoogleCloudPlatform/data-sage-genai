@@ -123,6 +123,4 @@ if __name__ == '__main__':
     app.run(debug=os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1'], host='0.0.0.0',
             port=int(os.environ.get('PORT', 8080)))
 
-# gcloud builds submit --tag gcr.io/genai-demo-2024/reggemini:last
-# gcloud run deploy ragsagegenie-srv  --image gcr.io/genai-demo-2024/reggemini:last --platform managed --region us-central1
-# --allow-unauthenticated
+ 
