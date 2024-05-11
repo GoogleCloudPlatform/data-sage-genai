@@ -17,10 +17,7 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
 - Google Cloud SDK
 - Docker (for container-based deployment)
 - Enable Google Cloud Storage, Cloud Run , Cloud Build, BigQuery and Vertex AI APIs - https://console.cloud.google.com/apis/enableflow?apiid=storage-component.googleapis.com,cloudbuild.googleapis.com,run.googleapis.com,bigquery.googleapis.com,aiplatform.googleapis.com&_ga=2.132962701.243207769.1688884437-279425947.1688884437
-
-
-
-
+- Create Vertex AI Vector Search Index. Refer to the steps in notebook: create-vertexai-vector-index.ipynb under  create-vertexai-vector-index/ directory.
 
 ### The Installation
 1. **Clone the repository**
@@ -115,4 +112,3 @@ curl -X POST http://<Cloud-Run-URL>/trigger-pdf
  
 ## License
 See the LICENSE  file for details.
-
