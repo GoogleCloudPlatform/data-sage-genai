@@ -16,7 +16,7 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
 - Flask
 - Google Cloud SDK
 - Docker (for container-based deployment)
-- Enable Google Cloud Storage, Cloud Run , Cloud Build, BigQuery and Vertex AI APIs (https://console.cloud.google.com/apis/enableflow?apiid=storage-component.googleapis.com,cloudbuild.googleapis.com,run.googleapis.com,bigquery.googleapis.com,aiplatform.googleapis.com&_ga=2.132962701.243207769.1688884437-279425947.1688884437).
+- Enable Google Cloud Storage, Cloud Run , Cloud Build, BigQuery and Vertex AI APIs - https://console.cloud.google.com/apis/enableflow?apiid=storage-component.googleapis.com,cloudbuild.googleapis.com,run.googleapis.com,bigquery.googleapis.com,aiplatform.googleapis.com&_ga=2.132962701.243207769.1688884437-279425947.1688884437
 
 ### Installation
 1. **Clone the repository**
