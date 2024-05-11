@@ -44,7 +44,7 @@ Set the required environment variables in the app.py file :
 PROJECT_ID = os.getenv('GCP_PROJECT_ID', 'your-gcp-project-id')
 # Change your GCP REGION LOCATION value here
 LOCATION = os.getenv('GCP_LOCATION', 'your-gcp-location')
-# Change your  Google Cloud Storage Bucket Name   here
+# Change your  Google Cloud Storage Bucket Name   here, this is a bucket where the embeddings are stored
 BUCKET_NAME = os.getenv('GCP_BUCKET_NAME', 'your-gcp-bucket-name')
 # Change the INDEX_ENDPOINT_NAME by the   Vector Search endpoint ID
 INDEX_ENDPOINT_NAME = os.getenv('GCP_INDEX_ENDPOINT_NAME', 'your-index-endpoint-id')
