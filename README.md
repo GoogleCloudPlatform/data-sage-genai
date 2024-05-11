@@ -4,7 +4,7 @@
 DataSageGen is an innovative chatbot designed to be a personal guide, helping users access and process information from a vast array of sources. This application leverages cutting-edge AI technologies to provide insights from data and AI product documentation, blog posts, white papers, community knowledge, and product and event announcements.
 
 ## Features
-- **Text Embeddings**: Utilizes Vertex AI Embeddings Model to convert text data into embeddings, enabling semantic search capabilities.
+- **Text Embeddings**: Utilizes Vertex AI Embeddings Model "textembedding-gecko@001" to convert text data into embeddings, enabling semantic search capabilities.
 - **Generative AI**: Generates context-based responses to user inquiries.
 - **Interactive Web Interface**: Provides a Google Cloud Platform user-friendly chat interface for real-time interaction.
 - **Google Cloud Integration**: Leverages Google Cloud services for scalable storage, AI model management and application scalabity and security.
@@ -37,16 +37,19 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
    ```
 
 ### Configuration
-Set the required environment variables in your terminal or script:
+Set the required environment variables in the app.py file :
 
 ```bash
-export GCP_PROJECT_ID="your-gcp-project-id"
-export GCP_LOCATION="your-gcp-location"
-export GCP_BUCKET_NAME="your-gcp-bucket-name"
-export GCP_INDEX_ENDPOINT_NAME="your-index-endpoint-id"
-export FLASK_DEBUG=True
-export PORT=8080
+# Change your PROJECT_ID value here
+PROJECT_ID = os.getenv('GCP_PROJECT_ID', 'your-gcp-project-id')
+# Change your GCP REGION LOCATION value here
+LOCATION = os.getenv('GCP_LOCATION', 'your-gcp-location')
+# Change your  Google Cloud Storage Bucket Name   here
+BUCKET_NAME = os.getenv('GCP_BUCKET_NAME', 'your-gcp-bucket-name')
+# Change the INDEX_ENDPOINT_NAME by the   Vector Search endpoint ID
+INDEX_ENDPOINT_NAME = os.getenv('GCP_INDEX_ENDPOINT_NAME', 'your-index-endpoint-id')
 ```
+Name the deployed index id : bqrelease_index or adapt the id in the app.py code
 
 ### Local Deployment
 Run the application locally:
