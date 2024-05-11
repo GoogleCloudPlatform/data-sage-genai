@@ -76,7 +76,7 @@ gcloud builds submit --tag gcr.io/your-gcp-project-id/datasagegen
 ```
 Deploy the image to Cloud Run:
 ```
-gcloud run deploy datasagegen --image gcr.io/your-gcp-project-id/datasagegen --platform managed --region your-gcp-location --allow-unauthenticated
+gcloud run deploy datasagegen --image gcr.io/your-gcp-project-id/datasagegen --platform managed --region your-gcp-location  
 ```
 This command will provide you with a URL where the service is deployed.
 
