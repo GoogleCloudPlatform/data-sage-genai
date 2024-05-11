@@ -80,7 +80,7 @@ This command will provide you with a URL where the service is deployed.
  
 
 ## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+See the LICENSE  file for details.
 
 ## Authors
 - **Wissem Khlifi** 
