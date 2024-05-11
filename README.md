@@ -77,8 +77,11 @@ gcloud run deploy datasagegen --image gcr.io/your-gcp-project-id/datasagegen --p
 ```
 This command will provide you with a URL where the service is deployed.
 
- 
 
+ ### Enabling IAP for Cloud Run
+ Step by Step Follow the documenmtation - https://cloud.google.com/iap/docs/enabling-cloud-run
+ Set up a HTTPS Application Load Balancer with Cloud Run - https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless 
+ 
 ## License
 See the LICENSE  file for details.
 
