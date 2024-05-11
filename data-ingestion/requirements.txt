@@ -1,0 +1,16 @@
+google-cloud-aiplatform
+google-api-python-client
+google-cloud
+google-cloud-bigquery
+google-api-python-client
+google-cloud-bigquery-storage
+google-cloud-pubsub
+lxml
+requests
+pdfkit
+Flask
+gunicorn
+Werkzeug
+weasyprint
+google-cloud-logging
+PyPDF2

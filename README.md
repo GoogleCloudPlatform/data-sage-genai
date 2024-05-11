@@ -18,6 +18,32 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
 - Docker (for container-based deployment)
 - Enable Google Cloud Storage, Cloud Run , Cloud Build, BigQuery and Vertex AI APIs - https://console.cloud.google.com/apis/enableflow?apiid=storage-component.googleapis.com,cloudbuild.googleapis.com,run.googleapis.com,bigquery.googleapis.com,aiplatform.googleapis.com&_ga=2.132962701.243207769.1688884437-279425947.1688884437
 
+
+### Data Ingestion Component
+
+The data ingestion component of the DataSageGen application is responsible for converting XML data to PDF documents, storing them in Google Cloud Storage, and potentially transforming them into useful data embeddings for further processing. This component utilizes technologies such as Flask, Google Cloud Storage, Vertex AI Search Index and WeasyPrint for PDF generation.
+The data ingestion code are located under data-ingestion directory.
+
+#### Features
+- XML to PDF Conversion : Converts XML data from specified URLs into formatted PDFs.
+- Cloud Storage Integration : Uploads the generated PDFs to Google Cloud Storage.
+- Generate Embeddings out of the new PDF files.
+- Update the Vertex AI Search Index with new embeddings for use in machine learning or other data-driven applications.
+
+####  Deployment on Google Cloud Platform
+
+Utilize the provided `cloudbuild.yaml` for deploying the application to Google Cloud Run. Ensure you have configured Cloud Build and Cloud Run in your GCP project.
+```bash
+gcloud builds submit --config cloudbuild.yaml
+```
+####  Usage , replace the Cloud-Run-URL with your cloud run URL
+
+Trigger the PDF generation and upload process by sending a POST request to `/trigger-pdf`. This can be done using curl or any HTTP client:
+```bash
+curl -X POST http://<Cloud-Run-URL>/trigger-pdf
+```
+
+
 ### Installation
 1. **Clone the repository**
    ```
@@ -88,5 +114,3 @@ This command will provide you with a URL where the service is deployed.
 ## License
 See the LICENSE  file for details.
 
-## Authors
-- **Wissem Khlifi** 

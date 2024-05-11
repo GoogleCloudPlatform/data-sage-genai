@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>GCP Release Notes</title></head>
+<body>
+  <h1>GCP Release Notes</h1>
+
+  {% for entry in entries %}  
+    <h2>{{ entry.title }}</h2> 
+    <p><strong>Release Date:</strong> {{ entry.updated }}</p>
+    <p>{{ entry.content }}</p> 
+    <hr>
+  {% endfor %}
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "contentsDeltaUri": "gs://gcp-newsletter-rag-vertex2",
+  "config": {
+    "dimensions": 768,
+    "approximateNeighborsCount": 10
+  }
+}
