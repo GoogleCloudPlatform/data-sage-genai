@@ -22,7 +22,7 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
 ### The Installation
 1. **Clone the repository**
    ```
-   git clone https://github.com/GoogleCloudPlatform/datasagegenai.git
+   git clone https://github.com/GoogleCloudPlatform/data-sage-genai.git
    cd datasagegen
    ```
 
@@ -41,13 +41,13 @@ DataSageGen is an innovative chatbot designed to be a personal guide, helping us
 Set the required environment variables in the app.py file :
 
 ```bash
-# Change your PROJECT_ID value here
+# Replace your PROJECT_ID value here
 PROJECT_ID = os.getenv('GCP_PROJECT_ID', 'your-gcp-project-id')
-# Change your GCP REGION LOCATION value here
+# Replace your GCP REGION LOCATION value here
 LOCATION = os.getenv('GCP_LOCATION', 'your-gcp-location')
-# Change your  Google Cloud Storage Bucket Name   here, this is a bucket where the embeddings are stored
+# Replace your  Google Cloud Storage Bucket Name   here, this is a bucket where the embeddings are stored
 BUCKET_NAME = os.getenv('GCP_BUCKET_NAME', 'your-gcp-bucket-name')
-# Change the INDEX_ENDPOINT_NAME by the   Vector Search endpoint ID
+# Replace the INDEX_ENDPOINT_NAME by the   Vector Search endpoint ID
 INDEX_ENDPOINT_NAME = os.getenv('GCP_INDEX_ENDPOINT_NAME', 'your-index-endpoint-id')
 ```
 Name the deployed index id : bqrelease_index or adapt the id in the app.py code
@@ -69,7 +69,7 @@ Access the application at `http://localhost:8080`.
 
 ### Google Cloud Run Deployment
 
-Open a Google Cloud Shell: http://shell.cloud.google.com/
+Open a Google Cloud Shell 
 
 Build the Docker image and push it to Google Container Registry:
 ```
@@ -103,11 +103,11 @@ gcloud builds submit --config cloudbuild.yaml
 
 Trigger the PDF generation and upload process by sending a POST request to `/trigger-pdf`. This can be done using curl or any HTTP client:
 ```bash
-curl -X POST http://<Cloud-Run-URL>/trigger-pdf
+curl -X POST https://<Cloud-Run-URL>/trigger-pdf
 ```
 
 ### Enabling IAP for Cloud Run
- Step by Step Follow the documenmtation - https://cloud.google.com/iap/docs/enabling-cloud-run
+ Step by Step Follow the documentation - https://cloud.google.com/iap/docs/enabling-cloud-run
  Set up a HTTPS Application Load Balancer with Cloud Run - https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless 
  
 ## License
