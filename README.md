@@ -107,8 +107,10 @@ curl -X POST https://<Cloud-Run-URL>/trigger-pdf
 ```
 
 ### Enabling IAP for Cloud Run
- Step by Step Follow the documentation - https://cloud.google.com/iap/docs/enabling-cloud-run
- Set up a HTTPS Application Load Balancer with Cloud Run - https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless 
+ 
+ - Step by Step Follow the documentation - https://cloud.google.com/iap/docs/enabling-cloud-run
+ 
+ - Set up a HTTPS Application Load Balancer with Cloud Run - https://cloud.google.com/load-balancing/docs/https/setting-up-https-serverless 
  
 ## License
 See the LICENSE  file for details.
