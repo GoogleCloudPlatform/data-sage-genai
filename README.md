@@ -89,8 +89,10 @@ This command will provide you with a URL where the service is deployed.
 
 ### Data Ingestion Component
 
-The data ingestion component of the DataSageGen application is responsible for converting XML data to PDF documents, storing them in Google Cloud Storage, and potentially transforming them into useful data embeddings for further processing. This component utilizes technologies such as Flask, Google Cloud Storage, Vertex AI Search Index and WeasyPrint for PDF generation.
-The data ingestion code are located under data-ingestion directory.
+This section provides sample code for the data ingestion component of the DataSageGen application. 
+This component is responsible for converting XML data to PDF documents, storing them in Google Cloud Storage, and potentially transforming them into useful data embeddings for further processing. 
+**Please note that this is an example code segment intended to illustrate the functionality and integration of various technologies.**
+such as Flask, Google Cloud Storage, Vertex AI Search Index and WeasyPrint for PDF generation.  The data ingestion code are located under data-ingestion directory.
 
 #### Features
 - XML to PDF Conversion : Converts XML data from specified URLs into formatted PDFs.
