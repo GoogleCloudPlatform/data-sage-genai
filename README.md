@@ -1,7 +1,10 @@
-# DataSageGen
+# DataSageGen Chatbot Template
 
 ## Introduction
-DataSageGen is an innovative chatbot designed to be a personal guide, helping users access and process information from a vast array of sources. This application leverages cutting-edge AI technologies to provide insights from data and AI product documentation, blog posts, white papers, community knowledge, and product and event announcements.
+This sample code creates a chatbot designed to be a personal guide, helping users access and process information from a vast array of sources. 
+You should use this example with caution and foundation for your application.
+This sample code leverages cutting-edge AI technologies to provide insights from data and AI product documentation, blog posts, white papers, community knowledge, and product and event announcements.
+Use this code as a foundation 
 
 ## Features
 - **Text Embeddings**: Utilizes Vertex AI Embeddings Model "textembedding-gecko@001" to convert text data into embeddings, enabling semantic search capabilities.
