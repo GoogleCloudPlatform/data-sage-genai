@@ -1,10 +1,12 @@
 # DataSageGen Chatbot Template
 
 ## Introduction
-This sample code creates a chatbot designed to be a personal guide, helping users access and process information from a vast array of sources. 
-You should use this example with caution and foundation for your application.
-This sample code leverages cutting-edge AI technologies to provide insights from data and AI product documentation, blog posts, white papers, community knowledge, and product and event announcements.
-Use this code as a foundation 
+
+This repository contains sample code for creating a chatbot designed to act as a personal guide. It helps users access and process information from various sources. 
+**Please note that this is an example code repository intended to provide a foundation for your application development.**
+This code utilizes advanced AI technologies to demonstrate how you can integrate features such as text embeddings, generative AI, and cloud integration. 
+It is **not intended to be a ready-to-use product** but rather a starting point for your own projects.
+
 
 ## Features
 - **Text Embeddings**: Utilizes Vertex AI Embeddings Model "textembedding-gecko@001" to convert text data into embeddings, enabling semantic search capabilities.
