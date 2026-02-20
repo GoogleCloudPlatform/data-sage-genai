@@ -10,7 +10,7 @@ requests
 pdfkit
 Flask
 gunicorn
-werkzeug==2.2.2
+werkzeug==3.1.6
 weasyprint
 PyPDF2
 faiss-cpu
